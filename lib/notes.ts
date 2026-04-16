@@ -1,5 +1,8 @@
 import { randomBytes } from "crypto";
 import { get, query, run } from "@/lib/db";
+import { EMPTY_DOC } from "@/lib/editor";
+
+export { EMPTY_DOC };
 
 export type Note = {
   id: string;
@@ -35,8 +38,6 @@ function rowToNote(row: NoteRow): Note {
     updatedAt: row.updated_at,
   };
 }
-
-export const EMPTY_DOC = { type: "doc", content: [{ type: "paragraph" }] };
 
 export type NoteStub = { id: string; userId: string; title: string; updatedAt: string; isPublic: boolean };
 

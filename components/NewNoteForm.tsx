@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NoteEditor from "@/components/NoteEditor";
-import { EMPTY_DOC } from "@/lib/notes";
+import { EMPTY_DOC } from "@/lib/editor";
 
 export default function NewNoteForm() {
   const router = useRouter();
