@@ -1,0 +1,18 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "NextNotes" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Sign in" [ref=e5] [cursor=pointer]:
+        - /url: /authenticate
+  - main [ref=e6]:
+    - heading "Rich-text notes, simply stored." [level=1] [ref=e7]
+    - paragraph [ref=e8]: Create, edit, and share notes with a powerful rich-text editor.
+    - generic [ref=e9]:
+      - link "Get started" [ref=e10] [cursor=pointer]:
+        - /url: /authenticate
+      - link "Sign in" [ref=e11] [cursor=pointer]:
+        - /url: /authenticate
+  - button "Open Next.js Dev Tools" [ref=e17] [cursor=pointer]:
+    - img [ref=e18]
+  - alert [ref=e21]

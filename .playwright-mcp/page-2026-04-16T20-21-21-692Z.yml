@@ -1,0 +1,6 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "NextNotes" [ref=e4] [cursor=pointer]:
+      - /url: /dashboard
+  - paragraph [ref=e5]: Landing page
+  - alert [ref=e6]

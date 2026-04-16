@@ -9,15 +9,18 @@ type Mode = "signin" | "signup";
 export default function AuthenticatePage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("signin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [fields, setFields] = useState({ email: "", password: "" });
+  const [status, setStatus] = useState<{ loading: boolean; error: string | null }>({
+    loading: false,
+    error: null,
+  });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
+    setStatus({ loading: true, error: null });
+
+    const email = fields.email.trim();
+    const { password } = fields;
 
     if (mode === "signup") {
       const { error } = await signUp.email({
@@ -27,8 +30,7 @@ export default function AuthenticatePage() {
         callbackURL: "/dashboard",
       });
       if (error) {
-        setError(error.message ?? "Sign up failed.");
-        setLoading(false);
+        setStatus({ loading: false, error: "Sign up failed. Please try again." });
         return;
       }
     } else {
@@ -38,8 +40,10 @@ export default function AuthenticatePage() {
         callbackURL: "/dashboard",
       });
       if (error) {
-        setError(error.message ?? "Sign in failed.");
-        setLoading(false);
+        setStatus({
+          loading: false,
+          error: "Sign in failed. Please check your credentials and try again.",
+        });
         return;
       }
     }
@@ -49,7 +53,7 @@ export default function AuthenticatePage() {
 
   function switchMode(next: Mode) {
     setMode(next);
-    setError(null);
+    setStatus({ loading: false, error: null });
   }
 
   return (
@@ -72,8 +76,8 @@ export default function AuthenticatePage() {
               type="email"
               required
               autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={fields.email}
+              onChange={(e) => setFields((f) => ({ ...f, email: e.target.value }))}
               className="border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400 focus:border-transparent"
             />
           </div>
@@ -91,24 +95,24 @@ export default function AuthenticatePage() {
               required
               minLength={8}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={fields.password}
+              onChange={(e) => setFields((f) => ({ ...f, password: e.target.value }))}
               className="border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400 focus:border-transparent"
             />
           </div>
 
-          {error && (
+          {status.error && (
             <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
-              {error}
+              {status.error}
             </p>
           )}
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={status.loading}
             className="mt-2 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 rounded-lg px-4 py-2 text-sm font-medium hover:bg-neutral-700 dark:hover:bg-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {loading
+            {status.loading
               ? mode === "signin"
                 ? "Signing in…"
                 : "Creating account…"

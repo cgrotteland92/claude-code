@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "NextNotes" [ref=e4] [cursor=pointer]:
+      - /url: /dashboard
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]
+  - main [ref=e38]:
+    - heading "New note" [level=1] [ref=e39]
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]: Title
+        - textbox "Title" [ref=e43]:
+          - /placeholder: Untitled note
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - button "Normal text" [pressed] [ref=e47]:
+              - img [ref=e48]
+            - button "Heading 1" [ref=e50]:
+              - img [ref=e51]
+            - button "Heading 2" [ref=e53]:
+              - img [ref=e54]
+            - button "Heading 3" [ref=e56]:
+              - img [ref=e57]
+          - generic [ref=e60]:
+            - button "Bold" [ref=e62]:
+              - img [ref=e63]
+            - button "Italic" [ref=e65]:
+              - img [ref=e66]
+          - generic [ref=e68]:
+            - button "Bullet list" [ref=e70]:
+              - img [ref=e71]
+            - button "Inline code" [ref=e72]:
+              - img [ref=e73]
+            - button "Code block" [ref=e76]:
+              - img [ref=e77]
+            - button "Horizontal rule" [ref=e81]:
+              - img [ref=e82]
+        - textbox [ref=e84]:
+          - paragraph [ref=e85]
+      - button "Save note" [ref=e87]

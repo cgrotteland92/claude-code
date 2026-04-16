@@ -1,0 +1,49 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "NextNotes" [ref=e4] [cursor=pointer]:
+      - /url: /dashboard
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]
+  - main [ref=e104]:
+    - link "← Back to note" [ref=e106] [cursor=pointer]:
+      - /url: /notes/4e947a52-13a8-4c48-ad03-3efad668c96a
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - generic [ref=e109]: Title
+        - textbox "Title" [ref=e110]:
+          - /placeholder: Untitled note
+          - text: Updated Test Note
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - button "Normal text" [pressed] [ref=e114]:
+              - img [ref=e115]
+            - button "Heading 1" [ref=e117]:
+              - img [ref=e118]
+            - button "Heading 2" [ref=e120]:
+              - img [ref=e121]
+            - button "Heading 3" [ref=e123]:
+              - img [ref=e124]
+          - generic [ref=e127]:
+            - button "Bold" [ref=e129]:
+              - img [ref=e130]
+            - button "Italic" [ref=e132]:
+              - img [ref=e133]
+          - generic [ref=e135]:
+            - button "Bullet list" [ref=e137]:
+              - img [ref=e138]
+            - button "Inline code" [ref=e139]:
+              - img [ref=e140]
+            - button "Code block" [ref=e143]:
+              - img [ref=e144]
+            - button "Horizontal rule" [ref=e148]:
+              - img [ref=e149]
+        - textbox [active] [ref=e151]:
+          - paragraph [ref=e152]: This is my first test note with some content.
+      - generic [ref=e154]:
+        - switch [ref=e155]
+        - generic [ref=e157]: Private
+      - generic [ref=e158]:
+        - button "Cancel" [ref=e159]
+        - button "Save" [ref=e160]

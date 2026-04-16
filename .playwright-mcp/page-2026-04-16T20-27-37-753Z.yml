@@ -1,0 +1,28 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "NextNotes" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard
+      - button "Log out" [ref=e6]
+  - main [ref=e7]:
+    - link "← Back to notes" [ref=e9] [cursor=pointer]:
+      - /url: /dashboard
+    - generic [ref=e10]:
+      - heading "Updated Test Note" [level=1] [ref=e11]
+      - generic [ref=e12]:
+        - link "Edit" [ref=e13] [cursor=pointer]:
+          - /url: /notes/4e947a52-13a8-4c48-ad03-3efad668c96a/edit
+        - button "Delete" [ref=e14]
+      - dialog [ref=e33]:
+        - heading "Delete note?" [level=2] [ref=e34]
+        - paragraph [ref=e35]: This cannot be undone.
+        - generic [ref=e36]:
+          - button "Cancel" [active] [ref=e37]
+          - button "Delete" [ref=e38]
+    - generic [ref=e17]:
+      - switch [ref=e18]
+      - generic [ref=e20]: Private
+    - paragraph [ref=e22]: Added more content.
+  - button "Open Next.js Dev Tools" [ref=e28] [cursor=pointer]:
+    - img [ref=e29]
+  - alert [ref=e32]

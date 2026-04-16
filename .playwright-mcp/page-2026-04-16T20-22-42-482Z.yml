@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "NextNotes" [ref=e4] [cursor=pointer]:
+      - /url: /dashboard
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]
+  - main [ref=e88]:
+    - link "← Back to notes" [ref=e90] [cursor=pointer]:
+      - /url: /dashboard
+    - generic [ref=e91]:
+      - heading "Test Note" [level=1] [ref=e92]
+      - generic [ref=e93]:
+        - link "Edit" [ref=e94] [cursor=pointer]:
+          - /url: /notes/4e947a52-13a8-4c48-ad03-3efad668c96a/edit
+        - button "Delete" [ref=e95]
+    - generic [ref=e98]:
+      - switch [ref=e99]
+      - generic [ref=e101]: Private
+    - paragraph [ref=e103]: This is my first test note with some content.

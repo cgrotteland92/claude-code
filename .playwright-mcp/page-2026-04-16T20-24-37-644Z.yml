@@ -1,0 +1,15 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "NextNotes" [ref=e4] [cursor=pointer]:
+        - /url: /dashboard
+      - button "Log out" [ref=e6]
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - heading "My notes" [level=1] [ref=e9]
+      - link "New note" [ref=e10] [cursor=pointer]:
+        - /url: /notes/new
+    - link "Updated Test Note 16.4.2026" [ref=e12] [cursor=pointer]:
+      - /url: /notes/4e947a52-13a8-4c48-ad03-3efad668c96a
+      - paragraph [ref=e13]: Updated Test Note
+      - paragraph [ref=e14]: 16.4.2026

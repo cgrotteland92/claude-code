@@ -9,11 +9,38 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
-  const note = await createNote(session.user.id, {
-    title: body.title,
-    contentJson: body.contentJson,
-  });
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+  }
 
-  return NextResponse.json(note, { status: 201 });
+  if (typeof body !== "object" || body === null) {
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+  }
+
+  const { title, contentJson } = body as Record<string, unknown>;
+
+  const safeTitle =
+    typeof title === "string" && title.trim().length > 0
+      ? title.trim().slice(0, 500)
+      : "Untitled note";
+
+  if (typeof contentJson !== "object" || contentJson === null || Array.isArray(contentJson)) {
+    return NextResponse.json({ error: "Invalid note content." }, { status: 400 });
+  }
+
+  try {
+    const note = await createNote(session.user.id, {
+      title: safeTitle,
+      contentJson: JSON.stringify(contentJson),
+    });
+    return NextResponse.json(note, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: "Failed to save note. Please try again." },
+      { status: 500 },
+    );
+  }
 }

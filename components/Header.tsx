@@ -15,7 +15,16 @@ export default function Header({ isAuthenticated }: Props) {
         >
           NextNotes
         </Link>
-        {isAuthenticated && <LogoutButton />}
+        {isAuthenticated ? (
+          <LogoutButton />
+        ) : (
+          <Link
+            href="/authenticate"
+            className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors"
+          >
+            Sign in
+          </Link>
+        )}
       </div>
     </header>
   );

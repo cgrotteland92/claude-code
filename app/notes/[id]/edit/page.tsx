@@ -1,13 +1,11 @@
 import { auth } from "@/lib/auth";
 import { getNoteById } from "@/lib/notes";
-import NoteRenderer from "@/components/NoteRenderer";
-import NoteActions from "@/components/NoteActions";
-import ShareToggle from "@/components/ShareToggle";
+import EditNoteForm from "@/components/EditNoteForm";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 
-export default async function NoteViewPage({
+export default async function NoteEditPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -19,30 +17,25 @@ export default async function NoteViewPage({
   const note = getNoteById(id, session.user.id);
   if (!note) notFound();
 
+  const initialContent = JSON.parse(note.contentJson) as object;
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
       <div className="mb-6">
         <Link
-          href="/dashboard"
+          href={`/notes/${id}`}
           className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
         >
-          ← Back to notes
+          ← Back to note
         </Link>
       </div>
-      <div className="flex items-start justify-between gap-4 mb-6">
-        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
-          {note.title}
-        </h1>
-        <NoteActions noteId={note.id} />
-      </div>
-      <div className="mb-8">
-        <ShareToggle
-          noteId={note.id}
-          initialIsPublic={note.isPublic}
-          initialSlug={note.publicSlug}
-        />
-      </div>
-      <NoteRenderer content={note.contentJson} />
+      <EditNoteForm
+        noteId={id}
+        initialTitle={note.title}
+        initialContent={initialContent}
+        initialIsPublic={note.isPublic}
+        initialSlug={note.publicSlug}
+      />
     </main>
   );
 }
