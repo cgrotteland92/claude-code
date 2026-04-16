@@ -1,18 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 export default function NoteActions({ noteId }: { noteId: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
   function confirmDelete() {
+    setError(null);
     startTransition(async () => {
-      await fetch(`/api/notes/${noteId}`, { method: "DELETE" });
-      router.push("/dashboard");
+      const res = await fetch(`/api/notes/${noteId}`, { method: "DELETE" });
+      if (res.ok) {
+        router.push("/dashboard");
+      } else {
+        setError("Failed to delete note. Please try again.");
+      }
     });
   }
 
@@ -26,7 +32,7 @@ export default function NoteActions({ noteId }: { noteId: string }) {
           Edit
         </Link>
         <button
-          onClick={() => dialogRef.current?.showModal()}
+          onClick={() => { setError(null); dialogRef.current?.showModal(); }}
           className="rounded-lg border border-red-200 dark:border-red-900 px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:border-red-400 dark:hover:border-red-600 transition-colors"
         >
           Delete
@@ -40,9 +46,12 @@ export default function NoteActions({ noteId }: { noteId: string }) {
         <h2 className="text-base font-semibold text-neutral-900 dark:text-white mb-2">
           Delete note?
         </h2>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
           This cannot be undone.
         </p>
+        {error && (
+          <p role="alert" className="text-sm text-red-600 dark:text-red-400 mb-4">{error}</p>
+        )}
         <div className="flex justify-end gap-2">
           <button
             onClick={() => dialogRef.current?.close()}

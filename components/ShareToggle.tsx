@@ -12,9 +12,11 @@ export default function ShareToggle({ noteId, initialIsPublic, initialSlug }: Pr
   const [isPublic, setIsPublic] = useState(initialIsPublic);
   const [slug, setSlug] = useState(initialSlug);
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   function toggle() {
+    setError(null);
     startTransition(async () => {
       const res = await fetch(`/api/notes/${noteId}/share`, {
         method: "POST",
@@ -25,6 +27,8 @@ export default function ShareToggle({ noteId, initialIsPublic, initialSlug }: Pr
         const data = await res.json() as { isPublic: boolean; publicSlug: string | null };
         setIsPublic(data.isPublic);
         setSlug(data.publicSlug);
+      } else {
+        setError("Failed to update sharing. Please try again.");
       }
     });
   }
@@ -61,6 +65,9 @@ export default function ShareToggle({ noteId, initialIsPublic, initialSlug }: Pr
           {isPublic ? "Public" : "Private"}
         </span>
       </div>
+      {error && (
+        <p role="alert" className="text-xs text-red-600 dark:text-red-400">{error}</p>
+      )}
       {isPublic && slug && (
         <div className="flex items-center gap-2">
           <input

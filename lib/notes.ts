@@ -38,13 +38,13 @@ function rowToNote(row: NoteRow): Note {
 
 export const EMPTY_DOC = { type: "doc", content: [{ type: "paragraph" }] };
 
-export type NoteStub = { id: string; userId: string; title: string; updatedAt: string };
+export type NoteStub = { id: string; userId: string; title: string; updatedAt: string; isPublic: boolean };
 
 export function getNotesByUser(userId: string): NoteStub[] {
-  return query<Pick<NoteRow, "id" | "user_id" | "title" | "updated_at">>(
-    `SELECT id, user_id, title, updated_at FROM notes WHERE user_id = ? ORDER BY updated_at DESC`,
+  return query<Pick<NoteRow, "id" | "user_id" | "title" | "updated_at" | "is_public">>(
+    `SELECT id, user_id, title, updated_at, is_public FROM notes WHERE user_id = ? ORDER BY updated_at DESC`,
     [userId]
-  ).map((r) => ({ id: r.id, userId: r.user_id, title: r.title, updatedAt: r.updated_at }));
+  ).map((r) => ({ id: r.id, userId: r.user_id, title: r.title, updatedAt: r.updated_at, isPublic: r.is_public === 1 }));
 }
 
 export function getNoteById(id: string, userId: string): Note | undefined {

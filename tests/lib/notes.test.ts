@@ -41,7 +41,7 @@ beforeEach(() => {
 describe("getNotesByUser", () => {
   it("returns mapped stubs for user", () => {
     mockQuery.mockReturnValue([
-      { id: "n1", user_id: "u1", title: "A", updated_at: "2024-01-01" },
+      { id: "n1", user_id: "u1", title: "A", updated_at: "2024-01-01", is_public: 0 },
     ]);
     const result = getNotesByUser("u1");
     expect(mockQuery).toHaveBeenCalledWith(
@@ -49,8 +49,15 @@ describe("getNotesByUser", () => {
       ["u1"]
     );
     expect(result).toEqual([
-      { id: "n1", userId: "u1", title: "A", updatedAt: "2024-01-01" },
+      { id: "n1", userId: "u1", title: "A", updatedAt: "2024-01-01", isPublic: false },
     ]);
+  });
+
+  it("maps is_public to boolean in stubs", () => {
+    mockQuery.mockReturnValue([
+      { id: "n1", user_id: "u1", title: "A", updated_at: "2024-01-01", is_public: 1 },
+    ]);
+    expect(getNotesByUser("u1")[0].isPublic).toBe(true);
   });
 
   it("returns empty array when no notes", () => {

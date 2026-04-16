@@ -43,9 +43,16 @@ export default async function DashboardPage() {
               <p className="font-medium text-neutral-900 dark:text-white truncate mb-1">
                 {note.title}
               </p>
-              <p className="text-xs text-neutral-400 dark:text-neutral-500">
-                {new Date(note.updatedAt).toLocaleDateString()}
-              </p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-neutral-400 dark:text-neutral-500">
+                  {new Date(note.updatedAt).toLocaleDateString()}
+                </p>
+                {note.isPublic && (
+                  <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                    Public
+                  </span>
+                )}
+              </div>
             </Link>
           ))}
         </div>
