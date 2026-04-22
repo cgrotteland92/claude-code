@@ -46,6 +46,14 @@ bun run start    # Production server
 bun run lint     # ESLint
 ```
 
+## Built with Claude Code
+
+This project was built using Claude Code with agents, commands, and skills:
+
+- **Agents** — DocsExplorer for live documentation lookup and Explore for codebase navigation
+- **Commands** — `/init` to generate `CLAUDE.md`, `/review` for PR review, `/security-review` for security audits
+- **Skills** — `simplify` to reduce code complexity, `fewer-permission-prompts` to tune the permission allowlist
+
 ## Project Structure
 
 ```
