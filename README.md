@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notes
+
+A rich-text note-taking app with public sharing. Built with Next.js, TipTap, and SQLite.
+
+## Features
+
+- Email/password authentication
+- Rich-text editor (bold, italic, headings, lists, code blocks)
+- Public note sharing via unique URL (`/p/[slug]`)
+- Auto-saving with optimistic UI
+
+## Stack
+
+- **Runtime:** Bun
+- **Framework:** Next.js 16 (App Router)
+- **Editor:** TipTap 3
+- **Auth:** better-auth
+- **DB:** SQLite (Bun native client)
+- **Styling:** TailwindCSS 4
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
+# Edit .env.local — set BETTER_AUTH_SECRET and DB_PATH
+
+bun install
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable            | Description                        |
+| ------------------- | ---------------------------------- |
+| `BETTER_AUTH_SECRET` | Random secret, 32+ chars          |
+| `DB_PATH`           | Path to SQLite file (e.g. `data/app.db`) |
 
-## Learn More
+## Commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+bun run dev      # Development server
+bun run build    # Production build
+bun run start    # Production server
+bun run lint     # ESLint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  api/notes/         # REST endpoints (CRUD + sharing)
+  dashboard/         # Authenticated note list
+  notes/[id]/        # Note editor page
+  p/[slug]/          # Public read-only note page
+lib/
+  db.ts              # SQLite singleton + query helpers
+  notes.ts           # Note repository (all queries scoped to user_id)
+components/
+  NoteEditor.tsx     # TipTap editor (client component)
+  NoteList.tsx       # Note list with links
+  ShareToggle.tsx    # Public sharing toggle
+  DeleteNoteButton.tsx
+```
